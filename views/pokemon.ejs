@@ -1,0 +1,43 @@
+<%- include("Template/cabecera", {tituloweb: "Pagina de inicio" }) %>
+    <div class="container">
+        <br>
+        <h1>LISTA DE POKEMONS</h1>
+        <a class="btn btn-success btn-block my-4" href="/pokemon/crear">Crear un nuevo pokemon</a>
+        <hr>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Tipo</th>
+                    <th scope="col">Descripción</th>
+                    <th scope="col" class="accion">Acción</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if (arrayPokemon.length> 0) { %>
+                    <% arrayPokemon.forEach(pokemon=> { %>
+                        <tr>
+                            <th scope="row">
+                                <%= pokemon.id %>
+                            </th>
+                            <td>
+                                <%= pokemon.nombre %>
+                            </td>
+                            <td>
+                                <%= pokemon.Tipo %>
+                            </td>
+                            <td>
+                                <%= pokemon.descripcion %>
+                            </td>
+                            <td>
+                                <a class="btn btn-warning btn-sm" href="pokemon/<%= pokemon.id %>">Editar/Eliminar</a>
+                            </td>
+                        </tr>
+                        <% }) %>
+                            <% } %>
+            </tbody>
+        </table>
+
+    </div>
+    <%- include("Template/footer") %>

@@ -1,0 +1,82 @@
+<%- include("Template/cabecera", {tituloweb: 'Detalles del entrenador' }) %>
+    <% if (error) { %>
+        <%= mensaje %>
+            <a href="/entrenador" class="btn btn-dark btn-block my-2">
+                Volver
+            </a>
+            <% } %>
+                <% if (!error) { %>
+                    <div class="container">
+                        <div class="bg">
+                            <table class="table">
+                                <h1 class="h1">Detalles del entrenador</h1>
+                                <br>
+                                <tbody>
+                                    <% if (!error) { %>
+                                        <form id="editar" data-id="<%= entrenador.id %>">
+                                            <input type="text" value="<%= entrenador.nombre %>" class="fila"
+                                                name="nombre" id="nombreInput">
+                                            <input type="text" value="<%= entrenador.bio %>" class="fila" name="bio"
+                                                id="tipoInput">
+                                            <input type="text" value="<%= entrenador.ciudad %>" class="fila"
+                                                name="ciudad" id="descripcionInput">
+                                            <input type="text" value="<%= entrenador.listapokemon %>" class="fila"
+                                                name="listapokemon" id="descripcionInput">
+                                            <button class="btn3 btn-warning btn-sm" type="submit">
+                                                Editar
+                                            </button>
+                                            <button class="btn3 btn-danger btn-sm" data-id="<%= entrenador.id %>">
+                                                Eliminar
+                                            </button>
+                                        </form>
+                                        <% } %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <% } %>
+
+                        <%- include("template/footer") %>
+                            <script>
+                                const btnEliminar = document.querySelector('.btn-danger')
+                                btnEliminar.addEventListener('click', async () => {
+                                    console.log(btnEliminar.dataset.id)
+                                    try {
+
+                                        const data = await fetch(`/entrenador/${btnEliminar.dataset.id}`, {
+                                            method: 'delete'
+                                        })
+                                        const res = await data.json()
+                                        console.log(res)
+                                        if (res.estado) {
+                                            window.location.href = '/entrenador'
+                                        } else {
+                                            console.log(res)
+                                        }
+                                    } catch (error) {
+                                        console.log(error)
+                                    }
+                                })
+                                const formEditar = document.querySelector('#editar');
+                                formEditar.addEventListener('submit', async (e) => {
+                                    e.preventDefault()
+                                    const nombre = formEditar.elements['nombre'].value
+                                    const bio = formEditar.elements['bio'].value
+                                    const ciudad = formEditar.elements['ciudad'].value
+                                    const listapokemon = formEditar.elements['listapokemon'].value
+                                    const id = formEditar.dataset.id
+                                    const data = await fetch(`/entrenador/${id}`, {
+                                        method: 'PUT',
+                                        headers: {
+                                            'Content-Type': 'application/json'
+                                        },
+                                        body: JSON.stringify({ nombre, bio, ciudad, listapokemon })
+                                    })
+                                    const res = await data.json()
+                                    if (res.estado) {
+                                        window.location.href = '/entrenador'
+                                    } else {
+                                        console.log(res)
+                                    }
+                                })
+                            </script>

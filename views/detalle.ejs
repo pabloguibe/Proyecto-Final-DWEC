@@ -1,0 +1,79 @@
+<%- include("Template/cabecera", {tituloweb: 'Detalles del Pokemon' }) %>
+    <% if (error) { %>
+        <%= mensaje %>
+            <a href="/pokemon" class="btn btn-dark btn-block my-2">
+                Volver
+            </a>
+            <% } %>
+                <% if (!error) { %>
+                    <div class="container">
+                        <div class="bg">
+                            <table class="table">
+                                <h1 class="h1">Detalles del pokemon</h1>
+                                <br>
+                                <tbody>
+                                    <% if (!error) { %>
+                                        <form id="editar" data-id="<%= pokemon.id %>">
+                                            <input type="text" value="<%= pokemon.nombre %>" class="fila" name="nombre"
+                                                id="nombreInput">
+                                            <input type="text" value="<%= pokemon.Tipo %>" class="fila" name="tipo"
+                                                id="tipoInput">
+                                            <input type="text" value="<%= pokemon.descripcion %>" class="fila"
+                                                name="descripcion" id="descripcionInput">
+                                            <button class="btn3 btn-warning btn-sm" type="submit">
+                                                Editar
+                                            </button>
+                                            <button class="btn3 btn-danger btn-sm" data-id="<%= pokemon.id %>">
+                                                Eliminar
+                                            </button>
+                                        </form>
+                                        <% } %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <% } %>
+
+                        <%- include("template/footer") %>
+                            <script>
+                                const btnEliminar = document.querySelector('.btn-danger')
+                                btnEliminar.addEventListener('click', async () => {
+                                    console.log(btnEliminar.dataset.id)
+                                    try {
+                                       
+                                        const data = await fetch(`/pokemon/${btnEliminar.dataset.id}`, {
+                                            method: 'delete'
+                                        })
+                                        const res = await data.json()
+                                        console.log(res)
+                                        if (res.estado) {
+                                            window.location.href = '/pokemon'
+                                        } else {
+                                            console.log(res)
+                                        }
+                                    } catch (error) {
+                                        console.log(error)
+                                    }
+                                })
+                                const formEditar = document.querySelector('#editar');
+                                formEditar.addEventListener('submit', async (e) => {
+                                    e.preventDefault()
+                                    const nombre = formEditar.elements['nombre'].value
+                                    const tipo = formEditar.elements['tipo'].value
+                                    const descripcion = formEditar.elements['descripcion'].value
+                                    const id = formEditar.dataset.id
+                                    const data = await fetch(`/pokemon/${id}`, {
+                                        method: 'PUT',
+                                        headers: {
+                                            'Content-Type': 'application/json'
+                                        },
+                                        body: JSON.stringify({ nombre, tipo, descripcion })
+                                    })
+                                    const res = await data.json()
+                                    if (res.estado) {
+                                        window.location.href = '/pokemon'
+                                    } else {
+                                        console.log(res)
+                                    }
+                                })
+                            </script>
