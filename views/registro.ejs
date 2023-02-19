@@ -1,0 +1,40 @@
+<%- include("Template/cabeceraIndex.ejs", {tituloweb: "Pagina de inicio"}) %>
+<section>
+
+    <img src="images/Captura.PNG" alt="logo" height="450px">
+    
+    <form id= "form1" class="registro" action="/registrar-propietario" 
+      name="registro" method="POST" onsubmit="return validar();">
+  
+      <h1 class="registro__titulo">Contáctenos</h1>
+
+      <input id="nombre_usuario" class="registro__input" type="text" name="nombre" maxlength="20" required>
+      <label for="" class="registro__label">Nombre Usuario</label>
+
+      <input id="contraseña" class="registro__input" type="password" name="password" maxlength="20" required>
+      <label for="" class="registro__label">Contraseña</label>
+
+      <input id="correo" class="registro__input" type="email" name="correo" maxlength="100" required>
+      <label for="" class="registro__label">Correo</label>
+  
+      <input id="telefono" class="registro__input" type="number" name="telefono" required>
+      <label for="" class="registro__label">Telefono</label>
+
+      <input type="checkbox" name="terminos" id="terminos"> <b>Terminos y condiciones</b>
+      <p>
+        <input class="registro__submit" type="submit" value="Enviar">
+        <br>
+        <input class="registro__vaciar" type="reset" value="Borrar">
+      </p>
+      <img class="logo_foto" src="images/RESERVANET.png" alt="logo_foto" height="300px">
+    </form>
+
+    <img class="foto_portada" src="images/imagen_portada.jpg" alt="foto_portada">
+  </section>
+
+
+</body>
+
+</html>
+
+<%- include("Template/footer") %>

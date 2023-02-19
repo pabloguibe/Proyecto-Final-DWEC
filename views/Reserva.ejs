@@ -1,0 +1,51 @@
+<%- include("Template/cabecera", {tituloweb: "Pagina de inicio" }) %>
+  <div class="container">
+    <br>
+    <h1>LISTA DE Reserva</h1>
+    <a class="btn btn-success btn-block my-4" href="/Reserva/crearReserva">Crear una nueva Reserva</a>
+    <hr>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">NombreBar</th>
+          <th scope="col">Hora</th>
+          <th scope="col">NumeroMesa</th>
+          <th scope="col">Observaciones</th>
+          <th scope="col">Acción</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if (arrayReserva.length> 0) { %>
+          <% arrayReserva.forEach(Reserva=> { %>
+            <tr>
+              <th scope="row">
+                <%= Reserva.id %>
+              </th>
+              <td>
+                <%= Reserva.nombre %>
+              </td>
+              <td>
+                <%= Reserva.nombreBar %>
+              </td>
+              <td>
+                <%= Reserva.hora %>
+              </td>
+              <td>
+                <%= Reserva.numeroMesa %>
+              </td>
+              <td>
+                <%= Reserva.observaciones %>
+              </td>
+              <td>
+                <a class="btn btn-warning btn-sm" href="Reserva/<%= Reserva.id %>">Editar/Eliminar</a>
+              </td>
+            </tr>
+            <% }) %>
+              <% } %>
+      </tbody>
+    </table>
+
+  </div>
+  <%- include("Template/footer") %>

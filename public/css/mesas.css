@@ -1,0 +1,25 @@
+.texto{
+    text-align: center;
+}
+
+.mesa {
+    margin-top: 50px;
+    width: 200px;
+    height: 200px;
+}
+
+.mesafila2 {
+    margin-left:50%;
+    margin-top: 50px;
+    width: 200px;
+    height: 200px;
+}
+
+.textofila2 {
+    margin-left:68%;
+    
+}
+
+.texto1{
+margin-left: 80px;
+}

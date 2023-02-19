@@ -1,7 +1,14 @@
 const bodyParser  = require('body-parser')
 const express = require('express')
+const session = require('express-session')
 const app = express()
+
 require('dotenv').config()
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: true,
+}))
 app.use(bodyParser.urlencoded({ extended: false}))
 app.use(bodyParser.json());
 
@@ -23,8 +30,8 @@ app.use(express.static(__dirname + "/public"));
 app.set('view engine', 'ejs');
 app.set('views',__dirname+'/views');
 app.use('/', require('./router/rutasweb'));
-app.use('/pokemon', require('./router/pokemon'));
-app.use('/entrenador', require('./router/entrenador'));
+app.use('/Bar', require('./router/Bar'));
+app.use('/Reserva', require('./router/Reserva'));
 app.listen(PORT, () => {
   console.log('Servidor activo en el puerto'+PORT)
 })

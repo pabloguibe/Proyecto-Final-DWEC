@@ -1,0 +1,43 @@
+<%- include("Template/cabeceraIndex.ejs", {tituloweb: "Pagina de inicio"}) %>
+<body>
+  
+  <h1>Lista de Tareas</h1>
+
+  <form id="task-form">
+    <input type="text" id="task-input" placeholder="Escribe una tarea...">
+    <button type="submit">Agregar</button>
+  </form>
+
+  <ul id="task-list">
+  </ul>
+
+  <script>
+    const taskForm = document.getElementById('task-form');
+    const taskInput = document.getElementById('task-input');
+    const taskList = document.getElementById('task-list');
+
+    // Función para agregar una tarea a la lista
+    function addTask(task) {
+      const taskItem = document.createElement('li');
+      taskItem.innerHTML = `${task} <button class="delete-btn">Eliminar</button>`;
+      taskList.appendChild(taskItem);
+
+      // Agregar evento click al botón eliminar
+      const deleteBtn = taskItem.querySelector('.delete-btn');
+      deleteBtn.addEventListener('click', () => {
+        taskList.removeChild(taskItem);
+      });
+    }
+
+    // Agregar evento submit al formulario de tareas
+    taskForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const task = taskInput.value.trim();
+      if (task !== '') {
+        addTask(task);
+        taskInput.value = '';
+      }
+    });
+  </script>
+</body>
+</html>

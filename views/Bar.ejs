@@ -1,37 +1,41 @@
 <%- include("Template/cabecera", {tituloweb: "Pagina de inicio" }) %>
     <div class="container">
         <br>
-        <h1>LISTA DE POKEMONS</h1>
-        <a class="btn btn-success btn-block my-4" href="/pokemon/crear">Crear un nuevo pokemon</a>
+        <h1>LISTA DE BARES</h1>
+        <a class="btn btn-success btn-block my-4" href="/Bar/crear">Crear un nuevo bar</a>
         <hr>
         <table class="table">
             <thead>
                 <tr>
                     <th scope="col">ID</th>
                     <th scope="col">Nombre</th>
-                    <th scope="col">Tipo</th>
-                    <th scope="col">Descripción</th>
+                    <th scope="col">Horario</th>
+                    <th scope="col">Direccion</th>
+                    <th scope="col">Observaciones</th>
                     <th scope="col" class="accion">Acción</th>
                 </tr>
             </thead>
             <tbody>
-                <% if (arrayPokemon.length> 0) { %>
-                    <% arrayPokemon.forEach(pokemon=> { %>
+                <% if (arrayBar.length> 0) { %>
+                    <% arrayBar.forEach(Bar=> { %>
                         <tr>
                             <th scope="row">
-                                <%= pokemon.id %>
+                                <%= Bar.id %>
                             </th>
                             <td>
-                                <%= pokemon.nombre %>
+                                <%= Bar.nombre %>
                             </td>
                             <td>
-                                <%= pokemon.Tipo %>
+                                <%= Bar.horario %>
                             </td>
                             <td>
-                                <%= pokemon.descripcion %>
+                                <%= Bar.direccion %>
                             </td>
                             <td>
-                                <a class="btn btn-warning btn-sm" href="pokemon/<%= pokemon.id %>">Editar/Eliminar</a>
+                                <%= Bar.observaciones %>
+                            </td>
+                            <td>
+                                <a class="btn btn-warning btn-sm" href="Bar/<%= Bar.id %>">Editar/Eliminar</a>
                             </td>
                         </tr>
                         <% }) %>

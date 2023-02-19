@@ -1,7 +1,7 @@
 <%- include("Template/cabecera", {tituloweb: 'Detalles del entrenador' }) %>
     <% if (error) { %>
         <%= mensaje %>
-            <a href="/entrenador" class="btn btn-dark btn-block my-2">
+            <a href="/Reserva" class="btn btn-dark btn-block my-2">
                 Volver
             </a>
             <% } %>
@@ -9,23 +9,25 @@
                     <div class="container">
                         <div class="bg">
                             <table class="table">
-                                <h1 class="h1">Detalles del entrenador</h1>
+                                <h1 class="h1">Detalles de la Reserva</h1>
                                 <br>
                                 <tbody>
                                     <% if (!error) { %>
-                                        <form id="editar" data-id="<%= entrenador.id %>">
-                                            <input type="text" value="<%= entrenador.nombre %>" class="fila"
+                                        <form id="editar" data-id="<%= Reserva.id %>">
+                                            <input type="text" value="<%= Reserva.nombre %>" class="fila"
                                                 name="nombre" id="nombreInput">
-                                            <input type="text" value="<%= entrenador.bio %>" class="fila" name="bio"
+                                            <input type="text" value="<%= Reserva.nombreBar %>" class="fila" name="nombreBar"
                                                 id="tipoInput">
-                                            <input type="text" value="<%= entrenador.ciudad %>" class="fila"
-                                                name="ciudad" id="descripcionInput">
-                                            <input type="text" value="<%= entrenador.listapokemon %>" class="fila"
-                                                name="listapokemon" id="descripcionInput">
+                                            <input type="text" value="<%= Reserva.hora %>" class="fila"
+                                                name="hora" id="descripcionInput">
+                                            <input type="text" value="<%= Reserva.numeroMesa %>" class="fila"
+                                                name="numeroMesa" id="descripcionInput">
+                                            <input type="text" value="<%= Reserva.observaciones %>" class="fila"
+                                                name="observaciones" id="descripcionInput">
                                             <button class="btn3 btn-warning btn-sm" type="submit">
                                                 Editar
                                             </button>
-                                            <button class="btn3 btn-danger btn-sm" data-id="<%= entrenador.id %>">
+                                            <button class="btn3 btn-danger btn-sm" data-id="<%= Reserva.id %>">
                                                 Eliminar
                                             </button>
                                         </form>
@@ -43,13 +45,13 @@
                                     console.log(btnEliminar.dataset.id)
                                     try {
 
-                                        const data = await fetch(`/entrenador/${btnEliminar.dataset.id}`, {
+                                        const data = await fetch(`/Reserva/${btnEliminar.dataset.id}`, {
                                             method: 'delete'
                                         })
                                         const res = await data.json()
                                         console.log(res)
                                         if (res.estado) {
-                                            window.location.href = '/entrenador'
+                                            window.location.href = '/Reserva'
                                         } else {
                                             console.log(res)
                                         }
@@ -61,20 +63,21 @@
                                 formEditar.addEventListener('submit', async (e) => {
                                     e.preventDefault()
                                     const nombre = formEditar.elements['nombre'].value
-                                    const bio = formEditar.elements['bio'].value
-                                    const ciudad = formEditar.elements['ciudad'].value
-                                    const listapokemon = formEditar.elements['listapokemon'].value
+                                    const nombreBar = formEditar.elements['nombreBar'].value
+                                    const hora = formEditar.elements['hora'].value
+                                    const numeroMesa = formEditar.elements['numeroMesa'].value
+                                    const observaciones = formEditar.elements['observaciones'].value
                                     const id = formEditar.dataset.id
-                                    const data = await fetch(`/entrenador/${id}`, {
+                                    const data = await fetch(`/Reserva/${id}`, {
                                         method: 'PUT',
                                         headers: {
                                             'Content-Type': 'application/json'
                                         },
-                                        body: JSON.stringify({ nombre, bio, ciudad, listapokemon })
+                                        body: JSON.stringify({ nombre, nombreBar, hora, numeroMesa, observaciones })
                                     })
                                     const res = await data.json()
                                     if (res.estado) {
-                                        window.location.href = '/entrenador'
+                                        window.location.href = '/Reserva'
                                     } else {
                                         console.log(res)
                                     }

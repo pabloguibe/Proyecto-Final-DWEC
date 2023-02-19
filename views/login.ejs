@@ -1,0 +1,30 @@
+    <section>
+
+
+        <img src="images/Captura.PNG" alt="logo" height="450px">
+
+        <form id="form1" action="/login" class="login" name="login" method="post" onsubmit="return validar_login();">
+
+
+            <h1 class="login__titulo">DEHESA FC</h1>
+            <h2 class="login__titulo">Login</h2>
+
+            <input id="nombre_usuario" class="login__input" type="text" name="nombre_usuario" maxlength="20" required>
+            <label for="" class="login__label">Nombre Usuario</label>
+
+            <input id="contraseña" class="login__input" type="password" name="password" maxlength="20" required>
+            <label for="" class="login__label">Contraseña</label>
+
+
+            <p>
+                <a href="/registro">No tienes cuenta?</a>
+            </p>
+            <button class="login__submit" value="Enviar">ENVIAR</button>
+
+            <br>
+            <input class="login__vaciar" type="reset" value="Borrar">
+            </p>
+        </form>
+
+        <img class="foto_portada" src="images/imagen_portada.jpg" alt="foto_portada">
+    </section>

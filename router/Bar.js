@@ -1,15 +1,22 @@
 const express = require('express');
 const router = express.Router();
-const Pokemon = require('../models/pokemon');
+const Bar = require('../models/Bar');
+
+function auth (req, res, next) {
+    if (req.session.propietario_id) next()
+    else res.status(401).send("No autenticado")
+}
+
+router.use(auth);
 
 router.get('/', async (req, res) => {
     try {
         //Le pondremos arrayPokemonDB para diferenciar
         //los datos que vienen de la base de datos
         //con respecto al arrayPokemon que tenemos EN LA VISTA
-        const arrayPokemonDB = await Pokemon.find();
-        res.render("pokemon", {
-            arrayPokemon: arrayPokemonDB
+        const arrayBarDB = await Bar.find();
+        res.render("Bar", {
+            arrayBar: arrayBarDB
         })
     } catch (error) {
         console.error(error)
@@ -23,9 +30,9 @@ router.get('/crear', (req, res) => {
 router.post('/', async (req, res) => {
     const body = req.body
     try {
-        const pokemonDB = new Pokemon(body)
-        await pokemonDB.save()
-        res.redirect('/pokemon')
+        const BarDB = new Bar(body)
+        await BarDB.save()
+        res.redirect('/Bar')
     } catch (error) {
         console.log('error', error)
     }
@@ -35,10 +42,10 @@ router.get('/:id', async (req, res) => {
     const id = req.params.id
 
     try {
-        const pokemonDB = await Pokemon.findOne({ _id: id })
+        const BarDB = await Bar.findOne({ _id: id })
 
         res.render('detalle', {
-            pokemon: pokemonDB,
+            Bar: BarDB,
             error: false
         })
     } catch (error) { //Si el id indicado no se encuentra
@@ -54,7 +61,7 @@ router.put('/:id', async (req, res) => {
     const id = req.params.id;
     const body = req.body;
     try {
-        const pokemonDB = await Pokemon.findByIdAndUpdate(
+        const BarDB = await Bar.findByIdAndUpdate(
             id, body, { useFindAndModify: false }
         )
         res.json({
@@ -75,9 +82,9 @@ router.delete('/:id', async (req, res) => {
     console.log('id desde backend', id)
     try {
 
-        const pokemonDB = await Pokemon.findByIdAndDelete({ _id: id });
+        const BarDB = await Bar.findByIdAndDelete({ _id: id });
 
-        if (!pokemonDB) {
+        if (!BarDB) {
             res.json({
                 estado: false,
                 mensaje: 'No se puede eliminar el Pokémon.'
